@@ -28,6 +28,7 @@
 		min-height: 50px;
 		transition: background-color 0.3s ease-in-out;
 		cursor: pointer;
+		user-select: none;
 
 		&:hover {
 			background-color: lightgray;

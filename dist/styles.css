@@ -28,6 +28,7 @@
   min-height: 50px;
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
+  user-select: none;
 }
 .tabs .tabs__tab:hover {
   background-color: lightgray;
