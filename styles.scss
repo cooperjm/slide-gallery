@@ -20,18 +20,39 @@
 	}
 
 	.tabs__tab {
+		position: relative;
 		display: flex;
 		white-space: nowrap;
 		justify-content: center;
 		align-items: center;
 		min-width: 125px;
 		min-height: 50px;
-		transition: background-color 0.3s ease-in-out;
+		transition: all 0.25s cubic-bezier(1, 0, 0.58, 0.97);
 		cursor: pointer;
 		user-select: none;
 
-		&:hover {
-			background-color: lightgray;
+		&:hover::before {
+			left: 0;
+			width: 100%;
+		}
+
+		&.selected::before {
+			left: 0;
+			width: 100%;
+		}
+
+		&::before {
+			position: absolute;
+			content: "";
+			width: 0;
+			height: 3px;
+			top: calc(78% - 1.5px);
+			right: 0;
+			background: #262626;
+			transition: inherit;
+		}
+
+		.selected {
 		}
 	}
 }

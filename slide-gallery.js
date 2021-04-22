@@ -3,23 +3,23 @@ let galleryOptions = {
 		topTabs: true,
 		bottomTabs: false,
 		tabLabels: [
-			'2000', //
-			'2001',
-			'2002',
-			'2003',
-			'2004',
-			'2005',
-			'2006',
-			'2007',
-			'2008',
-			'2009',
-			'2011',
-			'2012',
+			"2000", //
+			"2001",
+			"2002",
+			"2003",
+			"2004",
+			"2005",
+			"2006",
+			"2007",
+			"2008",
+			"2009",
+			"2011",
+			"2012",
 		],
 	},
 };
 
-slideGallery('slide-gallery', galleryOptions);
+slideGallery("slide-gallery", galleryOptions);
 
 function slideGallery(container, options) {
 	// TODO get slide gallery container
@@ -32,17 +32,17 @@ function slideGallery(container, options) {
 
 	// Build the tabs and their containers and append to main container
 	function createTabs() {
-		const container = document.createElement('DIV');
+		const container = document.createElement("DIV");
 		if (main.tabs.topTabs) {
-			container.id = 'top-tabs';
-			container.classList.add('tabs');
+			container.id = "top-tabs";
+			container.classList.add("tabs");
 		}
 
-		const ul = document.createElement('UL');
+		const ul = document.createElement("UL");
 		if (main.tabs.tabLabels) {
 			main.tabs.tabLabels.forEach((tab) => {
-				let daTab = document.createElement('LI');
-				daTab.classList.add('tabs__tab');
+				let daTab = document.createElement("LI");
+				daTab.classList.add("tabs__tab");
 				daTab.innerHTML = tab;
 				ul.appendChild(daTab);
 			});
@@ -53,13 +53,16 @@ function slideGallery(container, options) {
 
 		// Click event for tabs to scroll
 		ul.childNodes.forEach((li) => {
-			li.addEventListener('click', (event) => {
-				const clicked = event.target.offsetLeft - ul.clientWidth / 2 + event.target.clientWidth / 2;
+			li.addEventListener("click", (event) => {
+				const clicked =
+					event.target.offsetLeft -
+					ul.clientWidth / 2 +
+					event.target.clientWidth / 2;
 				console.log(clicked);
 
 				main.tabContainer.scrollTo({
 					left: clicked,
-					behavior: 'smooth',
+					behavior: "smooth",
 				});
 			});
 		});
