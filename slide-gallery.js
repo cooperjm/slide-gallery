@@ -14,9 +14,9 @@ let gOptions = {
 		['https://placedog.net/911/600?random', 'Test Alt Text', ''],
 	],
 	arrowControls: true,
-	tabNav: 'none', // top, bottom, or none
-	tabNavLabels: [], // Must have same amount as images
-	thumbnails: true, // Uses the url from images
+	tabNav: 'top', // top, bottom, or none
+	tabNavLabels: ['Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab'], // Must have same amount as images
+	thumbnails: false, // Uses the url from images
 };
 
 // console.log(gOptions);
@@ -29,6 +29,8 @@ function slideGallery(container, options) {
 	};
 
 	createGalleryElements();
+
+	createGalleryComponents();
 
 	function createGalleryElements() {
 		// Create Tabs Container
@@ -44,10 +46,59 @@ function slideGallery(container, options) {
 		imagesContainer.classList.add('images-container');
 		galleryContainer.appendChild(imagesContainer);
 		gallery.galleryContainer = galleryContainer;
+
+		// Create Thumbnail Container
+		const thumbnailContainer = document.createElement('DIV');
+		thumbnailContainer.id = 'thumbnail-container';
+		gallery.thumbnailContainer = thumbnailContainer;
+
+		console.log('OPTIONS OBJECT', options);
+
+		if (options.tabNav == 'top') {
+			gallery.galleryRoot.appendChild(gallery.tabs);
+		}
+
+		gallery.galleryRoot.appendChild(galleryContainer);
+
+		if (options.tabNav == 'bottom') {
+			gallery.galleryRoot.appendChild(gallery.tabs);
+		}
+
+		if (options.thumbnails) {
+			gallery.galleryRoot.appendChild(thumbnailContainer);
+		}
 	}
 
-	function createGalleryComponents() {}
+	function createGalleryComponents() {
+		buildTabs();
+
+		function buildTabs() {
+			// Generate the tabs from the tab labels given in the options
+			if (options.tabNav != 'none') {
+				const tabsContainer = document.createElement('DIV');
+				tabsContainer.id = 'tabs-container';
+				tabsContainer.classList.add('tabs');
+				const ul = document.createElement('UL');
+				for (let tab of options.tabNavLabels) {
+					const li = document.createElement('LI');
+					li.innerText = tab;
+					li.classList.add('tabs__tab');
+					ul.appendChild(li);
+				}
+				tabsContainer.appendChild(ul);
+				gallery.tabs.appendChild(tabsContainer);
+
+				// Create Indicator
+				const indicatorContainer = document.createElement('DIV');
+				indicatorContainer.id = 'indicator-container';
+				const indicator = document.createElement('DIV');
+				indicator.classList.add('indicator');
+				indicatorContainer.appendChild(indicator);
+				tabsContainer.appendChild(indicatorContainer);
+			}
+		}
+	}
 
 	// const galleryHolder = document.getElementById(container);
-	console.log(gallery);
+	console.log('GALLERY OBJECT', gallery);
 }
