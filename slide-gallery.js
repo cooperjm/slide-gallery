@@ -45,14 +45,13 @@ function slideGallery(container, options) {
 		const imagesContainer = document.createElement('DIV');
 		imagesContainer.classList.add('images-container');
 		galleryContainer.appendChild(imagesContainer);
+		gallery.imagesContainer = imagesContainer;
 		gallery.galleryContainer = galleryContainer;
 
 		// Create Thumbnail Container
 		const thumbnailContainer = document.createElement('DIV');
 		thumbnailContainer.id = 'thumbnail-container';
 		gallery.thumbnailContainer = thumbnailContainer;
-
-		console.log('OPTIONS OBJECT', options);
 
 		if (options.tabNav == 'top') {
 			gallery.galleryRoot.appendChild(gallery.tabs);
@@ -72,12 +71,11 @@ function slideGallery(container, options) {
 	function createGalleryComponents() {
 		buildTabs();
 
+		buildGallery();
+
 		function buildTabs() {
 			// Generate the tabs from the tab labels given in the options
 			if (options.tabNav != 'none') {
-				const tabsContainer = document.createElement('DIV');
-				tabsContainer.id = 'tabs-container';
-				tabsContainer.classList.add('tabs');
 				const ul = document.createElement('UL');
 				for (let tab of options.tabNavLabels) {
 					const li = document.createElement('LI');
@@ -85,8 +83,7 @@ function slideGallery(container, options) {
 					li.classList.add('tabs__tab');
 					ul.appendChild(li);
 				}
-				tabsContainer.appendChild(ul);
-				gallery.tabs.appendChild(tabsContainer);
+				gallery.tabs.appendChild(ul);
 
 				// Create Indicator
 				const indicatorContainer = document.createElement('DIV');
@@ -94,11 +91,31 @@ function slideGallery(container, options) {
 				const indicator = document.createElement('DIV');
 				indicator.classList.add('indicator');
 				indicatorContainer.appendChild(indicator);
-				tabsContainer.appendChild(indicatorContainer);
+				gallery.tabs.appendChild(indicatorContainer);
 			}
+		}
+
+		function buildGallery() {
+			options.images.forEach((img) => {
+				const slide = document.createElement('DIV');
+				slide.classList.add('slide');
+
+				const image = document.createElement('DIV');
+				image.classList.add('image');
+
+				const picture = document.createElement('IMG');
+				picture.src = img[0];
+				picture.alt = img[1];
+
+				image.appendChild(picture);
+				slide.appendChild(image);
+				gallery.imagesContainer.appendChild(slide);
+			});
+			console.log(gallery.imagesContainer);
 		}
 	}
 
 	// const galleryHolder = document.getElementById(container);
 	console.log('GALLERY OBJECT', gallery);
+	console.log('OPTIONS OBJECT', options);
 }

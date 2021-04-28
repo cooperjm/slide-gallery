@@ -30,6 +30,11 @@
 		min-height: 50px;
 		cursor: pointer;
 		user-select: none;
+		transition: background-color 0.25s ease-in-out;
+
+		&:hover {
+			background-color: rgb(228, 228, 228);
+		}
 	}
 }
 
@@ -37,6 +42,7 @@
 	overflow: hidden;
 	position: relative;
 	background-color: black;
+	max-height: 600px;
 
 	.images-container {
 		display: flex;
@@ -57,6 +63,8 @@
 				width: 100%;
 				object-fit: cover;
 				max-height: 600px;
+				display: inline-block;
+				height: 100%;
 			}
 
 			.image-text {
@@ -100,10 +108,8 @@
 
 			&:hover {
 				opacity: 0.85;
-				-webkit-box-shadow: 0px 10px 13px -7px #000000,
-					5px 5px 15px 5px rgba(0, 0, 0, 0);
-				box-shadow: 0px 10px 13px -7px #000000,
-					5px 5px 15px 5px rgba(0, 0, 0, 0);
+				-webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+				box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 			}
 
 			&:active {
@@ -114,7 +120,7 @@
 
 		.left::before {
 			position: absolute;
-			content: "\2039";
+			content: '\2039';
 			font-size: 64px;
 			color: white;
 			left: 50%;
@@ -125,7 +131,7 @@
 
 		.right::before {
 			position: absolute;
-			content: "\203A";
+			content: '\203A';
 			font-size: 64px;
 			color: white;
 			left: 50%;

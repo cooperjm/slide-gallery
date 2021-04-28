@@ -31,12 +31,17 @@
   min-height: 50px;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.25s ease-in-out;
+}
+.tabs .tabs__tab:hover {
+  background-color: #e4e4e4;
 }
 
 #gallery-container {
   overflow: hidden;
   position: relative;
   background-color: black;
+  max-height: 600px;
 }
 #gallery-container .images-container {
   display: flex;
@@ -57,6 +62,8 @@
   width: 100%;
   object-fit: cover;
   max-height: 600px;
+  display: inline-block;
+  height: 100%;
 }
 #gallery-container .images-container .slide .image-text {
   background-color: white;
