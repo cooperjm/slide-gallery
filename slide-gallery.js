@@ -15,7 +15,7 @@ let gOptions = {
 	],
 	arrowControls: true,
 	tabNav: 'top', // top, bottom, or none
-	tabNavLabels: ['Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab'], // Must have same amount as images
+	tabNavLabels: ['Tab-1', 'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'], // Must have same amount as images
 	thumbnails: false, // Uses the url from images
 };
 
@@ -77,11 +77,29 @@ function slideGallery(container, options) {
 			// Generate the tabs from the tab labels given in the options
 			if (options.tabNav != 'none') {
 				const ul = document.createElement('UL');
+				let i = 0;
 				for (let tab of options.tabNavLabels) {
 					const li = document.createElement('LI');
 					li.innerText = tab;
 					li.classList.add('tabs__tab');
+					li.setAttribute('data-index', i);
 					ul.appendChild(li);
+					li.addEventListener('click', (e) => {
+						const index = e.target.dataset.index;
+
+						// Move Gallery Images depending on which tab is clicked
+						gallery.imagesContainer.style.left = -index + '00%';
+
+						// Scroll tab bar
+						const clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
+						gallery.tabs.scrollTo({
+							left: clicked,
+							behavior: 'smooth',
+						});
+						gallery.indicator.style.left = e.target.offsetLeft + 'px';
+						gallery.indicator.style.width = e.target.offsetWidth + 'px';
+					});
+					i++;
 				}
 				gallery.tabs.appendChild(ul);
 
@@ -92,6 +110,7 @@ function slideGallery(container, options) {
 				indicator.classList.add('indicator');
 				indicatorContainer.appendChild(indicator);
 				gallery.tabs.appendChild(indicatorContainer);
+				gallery.indicator = indicator;
 			}
 		}
 
@@ -111,7 +130,7 @@ function slideGallery(container, options) {
 				slide.appendChild(image);
 				gallery.imagesContainer.appendChild(slide);
 			});
-			console.log(gallery.imagesContainer);
+			// console.log(gallery.imagesContainer);
 		}
 	}
 

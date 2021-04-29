@@ -50,6 +50,7 @@
 		flex-wrap: nowrap;
 		position: relative;
 		left: 0;
+		transition: left 0.2s ease-in-out;
 
 		.slide {
 			display: flex;
@@ -194,5 +195,7 @@
 		width: 125px;
 		height: 7px;
 		background-color: black;
+		position: relative;
+		left: 0;
 	}
 }

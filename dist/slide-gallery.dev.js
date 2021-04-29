@@ -6,7 +6,7 @@ var gOptions = {
   arrowControls: true,
   tabNav: 'top',
   // top, bottom, or none
-  tabNavLabels: ['Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab', 'Tab'],
+  tabNavLabels: ['Tab-1', 'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
   // Must have same amount as images
   thumbnails: false // Uses the url from images
 
@@ -62,42 +62,61 @@ function slideGallery(container, options) {
     function buildTabs() {
       // Generate the tabs from the tab labels given in the options
       if (options.tabNav != 'none') {
-        var ul = document.createElement('UL');
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        (function () {
+          var ul = document.createElement('UL');
+          var i = 0;
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
 
-        try {
-          for (var _iterator = options.tabNavLabels[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var tab = _step.value;
-            var li = document.createElement('LI');
-            li.innerText = tab;
-            li.classList.add('tabs__tab');
-            ul.appendChild(li);
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
           try {
-            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-              _iterator["return"]();
+            for (var _iterator = options.tabNavLabels[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var tab = _step.value;
+              var li = document.createElement('LI');
+              li.innerText = tab;
+              li.classList.add('tabs__tab');
+              li.setAttribute('data-index', i);
+              ul.appendChild(li);
+              li.addEventListener('click', function (e) {
+                var index = e.target.dataset.index; // Move Gallery Images depending on which tab is clicked
+
+                gallery.imagesContainer.style.left = -index + '00%'; // Scroll tab bar
+
+                var clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
+                gallery.tabs.scrollTo({
+                  left: clicked,
+                  behavior: 'smooth'
+                });
+                gallery.indicator.style.left = e.target.offsetLeft + 'px';
+                gallery.indicator.style.width = e.target.offsetWidth + 'px';
+              });
+              i++;
             }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            try {
+              if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                _iterator["return"]();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
             }
           }
-        }
 
-        gallery.tabs.appendChild(ul); // Create Indicator
+          gallery.tabs.appendChild(ul); // Create Indicator
 
-        var indicatorContainer = document.createElement('DIV');
-        indicatorContainer.id = 'indicator-container';
-        var indicator = document.createElement('DIV');
-        indicator.classList.add('indicator');
-        indicatorContainer.appendChild(indicator);
-        gallery.tabs.appendChild(indicatorContainer);
+          var indicatorContainer = document.createElement('DIV');
+          indicatorContainer.id = 'indicator-container';
+          var indicator = document.createElement('DIV');
+          indicator.classList.add('indicator');
+          indicatorContainer.appendChild(indicator);
+          gallery.tabs.appendChild(indicatorContainer);
+          gallery.indicator = indicator;
+        })();
       }
     }
 
@@ -113,8 +132,7 @@ function slideGallery(container, options) {
         image.appendChild(picture);
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);
-      });
-      console.log(gallery.imagesContainer);
+      }); // console.log(gallery.imagesContainer);
     }
   } // const galleryHolder = document.getElementById(container);
 
