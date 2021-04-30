@@ -14,7 +14,7 @@ let gOptions = {
 		['https://placedog.net/911/600?random', 'Test Alt Text', ''],
 	],
 	arrowControls: true,
-	tabNav: 'top', // top, bottom, or none
+	tabNav: 'none', // top, bottom, or none
 	tabNavLabels: ['Tab-1', 'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'], // Must have same amount as images
 	thumbnails: false, // Uses the url from images
 };
@@ -130,6 +130,29 @@ function slideGallery(container, options) {
 				slide.appendChild(image);
 				gallery.imagesContainer.appendChild(slide);
 			});
+
+			if (options.arrowControls) {
+				const arrowControls = document.createElement('DIV');
+				arrowControls.id = 'arrow-controls';
+
+				const leftArrow = document.createElement('SPAN');
+				leftArrow.classList.add('left', 'arrow');
+				leftArrow.setAttribute('tabindex', '0');
+				arrowControls.appendChild(leftArrow);
+
+				leftArrow.addEventListener('click', (e) => {
+					// gallery.imagesContainer.style.left;
+					console.log('50%' < '100%');
+				});
+
+				const rightArrow = document.createElement('SPAN');
+				rightArrow.classList.add('right', 'arrow');
+				rightArrow.setAttribute('tabindex', '0');
+				arrowControls.appendChild(rightArrow);
+				console.log(arrowControls);
+
+				gallery.imagesContainer.appendChild(arrowControls);
+			}
 			// console.log(gallery.imagesContainer);
 		}
 	}

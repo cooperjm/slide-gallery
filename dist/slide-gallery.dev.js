@@ -4,7 +4,7 @@ var gOptions = {
   images: [['https://placedog.net/900/600?random', 'Test Alt Text', 'Test Copy'], // URL, alt text, copy text
   ['https://placedog.net/901/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/902/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/903/600?random', 'Test Alt Text', ''], ['https://placedog.net/904/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/905/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/906/600?random', 'Test Alt Text', ''], ['https://placedog.net/907/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/908/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/909/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/911/600?random', 'Test Alt Text', '']],
   arrowControls: true,
-  tabNav: 'top',
+  tabNav: 'none',
   // top, bottom, or none
   tabNavLabels: ['Tab-1', 'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
   // Must have same amount as images
@@ -132,7 +132,27 @@ function slideGallery(container, options) {
         image.appendChild(picture);
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);
-      }); // console.log(gallery.imagesContainer);
+      });
+
+      if (options.arrowControls) {
+        var arrowControls = document.createElement('DIV');
+        arrowControls.id = 'arrow-controls';
+        var leftArrow = document.createElement('SPAN');
+        leftArrow.classList.add('left', 'arrow');
+        leftArrow.setAttribute('tabindex', '0');
+        arrowControls.appendChild(leftArrow);
+        leftArrow.addEventListener('click', function (e) {
+          // gallery.imagesContainer.style.left;
+          console.log('50%' < '100%');
+        });
+        var rightArrow = document.createElement('SPAN');
+        rightArrow.classList.add('right', 'arrow');
+        rightArrow.setAttribute('tabindex', '0');
+        arrowControls.appendChild(rightArrow);
+        console.log(arrowControls);
+        gallery.imagesContainer.appendChild(arrowControls);
+      } // console.log(gallery.imagesContainer);
+
     }
   } // const galleryHolder = document.getElementById(container);
 
