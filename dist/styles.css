@@ -1,183 +1,182 @@
 @charset "UTF-8";
 #demo-container {
-	max-width: 1170px;
-	width: 100%;
-	margin: 0 auto;
-	font-family: sans-serif;
-	font-size: 16px;
-	line-height: 1.5;
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .tabs {
-	overflow: hidden;
+  overflow: hidden;
 }
 .tabs ul {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	position: relative;
-	margin-bottom: 0 !important;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 0 !important;
 }
 .tabs .tabs__tab {
-	position: relative;
-	display: flex;
-	white-space: nowrap;
-	justify-content: center;
-	align-items: center;
-	min-width: 125px;
-	min-height: 50px;
-	cursor: pointer;
-	user-select: none;
-	transition: background-color 0.25s ease-in-out;
+  position: relative;
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  min-width: 125px;
+  min-height: 50px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.25s ease-in-out;
 }
 .tabs .tabs__tab:hover {
-	background-color: #e4e4e4;
+  background-color: #e4e4e4;
 }
 
 #gallery-container {
-	overflow: hidden;
-	position: relative;
-	background-color: black;
-	max-height: 600px;
+  overflow: hidden;
+  position: relative;
+  background-color: black;
+  max-height: 600px;
 }
 #gallery-container .images-container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	position: relative;
-	left: 0;
-	transition: left 0.2s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
+  left: "0%";
+  transition: left 0.2s ease-in-out;
 }
 #gallery-container .images-container .slide {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	flex-shrink: 0;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
 }
 #gallery-container .images-container .slide img {
-	width: 100%;
-	object-fit: cover;
-	max-height: 600px;
-	display: inline-block;
-	height: 100%;
+  width: 100%;
+  object-fit: cover;
+  max-height: 600px;
+  display: inline-block;
+  height: 100%;
 }
 #gallery-container .images-container .slide .image-text {
-	background-color: white;
-	padding: 30px;
+  background-color: white;
+  padding: 30px;
 }
 #gallery-container #arrow-controls {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	min-height: 50px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
 }
 #gallery-container #arrow-controls .arrow {
-	font-family: Verdana, sans-serif;
-	position: relative;
-	background-color: #646464;
-	min-width: 100px;
-	min-height: 100px;
-	border-radius: 100%;
-	cursor: pointer;
+  font-family: Verdana, sans-serif;
+  position: relative;
+  background-color: #646464;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 100%;
+  cursor: pointer;
 }
 #gallery-container #arrow-controls .left {
-	margin-left: 2%;
+  margin-left: 2%;
 }
 #gallery-container #arrow-controls .right {
-	margin-right: 2%;
+  margin-right: 2%;
 }
 #gallery-container #arrow-controls .left,
 #gallery-container #arrow-controls .right {
-	transition: all 0.2s ease-in-out;
-	opacity: 0.25;
+  transition: all 0.2s ease-in-out;
+  opacity: 0.25;
 }
 #gallery-container #arrow-controls .left:hover,
 #gallery-container #arrow-controls .right:hover {
-	opacity: 0.85;
-	-webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-	box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  opacity: 0.85;
+  -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 #gallery-container #arrow-controls .left:active,
 #gallery-container #arrow-controls .right:active {
-	box-shadow: none;
-	opacity: 0.85;
+  box-shadow: none;
+  opacity: 0.85;
 }
 #gallery-container #arrow-controls .left::before {
-	position: absolute;
-	content: '‹';
-	font-size: 64px;
-	color: white;
-	left: 50%;
-	bottom: 50%;
-	transform: translate(-55%, 45%);
+  position: absolute;
+  content: "‹";
+  font-size: 64px;
+  color: white;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-55%, 45%);
 }
 #gallery-container #arrow-controls .right::before {
-	position: absolute;
-	content: '›';
-	font-size: 64px;
-	color: white;
-	left: 50%;
-	bottom: 50%;
-	transform: translate(-50%, 45%);
+  position: absolute;
+  content: "›";
+  font-size: 64px;
+  color: white;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, 45%);
 }
 
 #thumbnail-container {
-	overflow: hidden;
+  overflow: hidden;
 }
 #thumbnail-container ul {
-	list-style: none;
-	padding: 0;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	left: 0;
+  list-style: none;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  left: 0;
 }
 #thumbnail-container ul .thumbnail {
-	border-width: 4px 2px;
-	border-color: black;
-	border-style: solid;
-	overflow: hidden;
-	flex-shrink: 0;
-	flex-basis: 132px;
-	max-height: 105px;
+  border-width: 4px 2px;
+  border-color: black;
+  border-style: solid;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-basis: 132px;
+  max-height: 105px;
 }
 #thumbnail-container ul .thumbnail:first-child {
-	border-left: solid 4px black;
+  border-left: solid 4px black;
 }
 #thumbnail-container ul .thumbnail:last-child {
-	border-right: solid 4px black;
+  border-right: solid 4px black;
 }
 #thumbnail-container ul .thumbnail img {
-	width: 100%;
-	height: 100%;
-	max-width: 132px;
-	object-fit: cover;
-	transform: scale(1);
-	transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+  max-width: 132px;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
 }
 #thumbnail-container ul .thumbnail img:hover {
-	transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 #indicator-container {
-	position: relative;
+  position: relative;
 }
 #indicator-container .indicator {
-	border-radius: 5px;
-	margin-bottom: 5px;
-	width: 125px;
-	height: 7px;
-	background-color: black;
-	position: relative;
-	left: 0px;
-	transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  width: 125px;
+  height: 7px;
+  background-color: black;
+  position: relative;
+  left: 0;
 }

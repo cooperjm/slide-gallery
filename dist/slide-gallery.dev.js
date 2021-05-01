@@ -6,8 +6,8 @@ var gOptions = {
   arrowControls: true,
   tabNav: 'none',
   // top, bottom, or none
-  tabNavLabels: ['Tab-1', 'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
-  // Must have same amount as images
+  tabNavLabels: ['Tab-1', // Must have same amount as images
+  'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
   thumbnails: false // Uses the url from images
 
 }; // console.log(gOptions);
@@ -32,6 +32,7 @@ function slideGallery(container, options) {
     galleryContainer.id = 'gallery-container';
     var imagesContainer = document.createElement('DIV');
     imagesContainer.classList.add('images-container');
+    imagesContainer.style.left = '0%';
     galleryContainer.appendChild(imagesContainer);
     gallery.imagesContainer = imagesContainer;
     gallery.galleryContainer = galleryContainer; // Create Thumbnail Container
@@ -121,6 +122,9 @@ function slideGallery(container, options) {
     }
 
     function buildGallery() {
+      gallery.numberOfImages = options.images.length - 1;
+      gallery.maxScrollWidth = gallery.numberOfImages * 100;
+      gallery.currentArrowScrollWidth = 0;
       options.images.forEach(function (img) {
         var slide = document.createElement('DIV');
         slide.classList.add('slide');
@@ -142,17 +146,23 @@ function slideGallery(container, options) {
         leftArrow.setAttribute('tabindex', '0');
         arrowControls.appendChild(leftArrow);
         leftArrow.addEventListener('click', function (e) {
-          // gallery.imagesContainer.style.left;
-          console.log('50%' < '100%');
+          if (gallery.currentArrowScrollWidth > 0) {
+            gallery.currentArrowScrollWidth -= 100;
+            gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+          }
         });
         var rightArrow = document.createElement('SPAN');
         rightArrow.classList.add('right', 'arrow');
         rightArrow.setAttribute('tabindex', '0');
         arrowControls.appendChild(rightArrow);
-        console.log(arrowControls);
-        gallery.imagesContainer.appendChild(arrowControls);
-      } // console.log(gallery.imagesContainer);
-
+        rightArrow.addEventListener('click', function (e) {
+          if (gallery.currentArrowScrollWidth < gallery.maxScrollWidth) {
+            gallery.currentArrowScrollWidth += 100;
+            gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+          }
+        });
+        gallery.galleryContainer.appendChild(arrowControls);
+      }
     }
   } // const galleryHolder = document.getElementById(container);
 
