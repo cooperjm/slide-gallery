@@ -40,8 +40,6 @@
 #gallery-container {
   overflow: hidden;
   position: relative;
-  background-color: black;
-  max-height: 600px;
 }
 #gallery-container .images-container {
   display: flex;
@@ -58,7 +56,6 @@
   width: 100%;
   flex-shrink: 0;
   align-items: center;
-  justify-content: center;
 }
 #gallery-container .images-container .slide img {
   width: 100%;
@@ -69,7 +66,10 @@
 }
 #gallery-container .images-container .slide .image-text {
   background-color: white;
-  padding: 30px;
+  width: 100%;
+}
+#gallery-container .images-container .slide .image-text .text-wrapper {
+  padding: 30px 45px;
 }
 #gallery-container #arrow-controls {
   position: absolute;

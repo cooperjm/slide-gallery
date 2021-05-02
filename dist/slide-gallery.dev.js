@@ -1,11 +1,11 @@
 "use strict";
 
 var gOptions = {
-  images: [['https://placedog.net/900/600?random', 'Test Alt Text', 'Test Copy'], // URL, alt text, copy text
-  ['https://placedog.net/901/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/902/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/903/600?random', 'Test Alt Text', ''], ['https://placedog.net/904/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/905/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/906/600?random', 'Test Alt Text', ''], ['https://placedog.net/907/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/908/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/909/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/911/600?random', 'Test Alt Text', '']],
+  images: [// URL, alt text, copy text
+  ['https://placedog.net/900/600?random', 'Test Alt Text', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus esse itaque iusto nesciunt vero, dolore totam obcaecati aut quos veniam, reiciendis modi vel porro ea. Vel pariatur non quam quibusdam.'], ['https://placedog.net/901/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/402/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/903/600?random', 'Test Alt Text'], ['https://placedog.net/904/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/905/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/906/600?random', 'Test Alt Text', ''], ['https://placedog.net/907/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/908/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/909/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/911/600?random', 'Test Alt Text', '']],
   arrowControls: true,
   tabNav: 'top',
-  // top, bottom, or none
+  // top, bottom, or none //TODO add bottom
   tabNavLabels: ['Tab-1', // Must have same amount as images
   'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
   thumbnails: false // Uses the url from images
@@ -134,9 +134,20 @@ function slideGallery(container, options) {
         var picture = document.createElement('IMG');
         picture.src = img[0];
         picture.alt = img[1];
+        picture.text = img[2];
         image.appendChild(picture);
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);
+
+        if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
+          var picText = document.createElement('DIV');
+          picText.classList.add('image-text');
+          var textWrapper = document.createElement('DIV');
+          textWrapper.classList.add('text-wrapper');
+          textWrapper.innerText = picture.text;
+          picText.appendChild(textWrapper);
+          slide.appendChild(picText);
+        }
       });
 
       if (options.arrowControls) {
