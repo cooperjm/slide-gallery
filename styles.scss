@@ -50,7 +50,8 @@
 		flex-wrap: nowrap;
 		position: relative;
 		left: '0%';
-		transition: left 0.2s ease-in-out;
+		will-change: transform;
+		transition: left 0.2s ease-in-out, transform 0.2s ease-in-out;
 
 		.slide {
 			display: flex;
@@ -197,5 +198,6 @@
 		background-color: black;
 		position: relative;
 		left: 0;
+		transition: left 0.3s ease-in-out;
 	}
 }

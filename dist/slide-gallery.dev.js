@@ -4,19 +4,19 @@ var gOptions = {
   images: [['https://placedog.net/900/600?random', 'Test Alt Text', 'Test Copy'], // URL, alt text, copy text
   ['https://placedog.net/901/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/902/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/903/600?random', 'Test Alt Text', ''], ['https://placedog.net/904/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/905/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/906/600?random', 'Test Alt Text', ''], ['https://placedog.net/907/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/908/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/909/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/911/600?random', 'Test Alt Text', '']],
   arrowControls: true,
-  tabNav: 'none',
+  tabNav: 'top',
   // top, bottom, or none
   tabNavLabels: ['Tab-1', // Must have same amount as images
   'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
   thumbnails: false // Uses the url from images
 
-}; // console.log(gOptions);
-
+};
 slideGallery('slide-gallery', gOptions);
 
 function slideGallery(container, options) {
   var gallery = {
-    galleryRoot: document.getElementById(container)
+    galleryRoot: document.getElementById(container),
+    count: 0
   };
   createGalleryElements();
   createGalleryComponents();
@@ -32,7 +32,6 @@ function slideGallery(container, options) {
     galleryContainer.id = 'gallery-container';
     var imagesContainer = document.createElement('DIV');
     imagesContainer.classList.add('images-container');
-    imagesContainer.style.left = '0%';
     galleryContainer.appendChild(imagesContainer);
     gallery.imagesContainer = imagesContainer;
     gallery.galleryContainer = galleryContainer; // Create Thumbnail Container
@@ -79,9 +78,11 @@ function slideGallery(container, options) {
               li.setAttribute('data-index', i);
               ul.appendChild(li);
               li.addEventListener('click', function (e) {
-                var index = e.target.dataset.index; // Move Gallery Images depending on which tab is clicked
+                var index = e.target.dataset.index;
+                gallery.count = index;
+                gallery.currentArrowScrollWidth = index * 100; // Move Gallery Images depending on which tab is clicked
 
-                gallery.imagesContainer.style.left = -index + '00%'; // Scroll tab bar
+                gallery.imagesContainer.style.transform = 'translateX(' + -index + '00%' + ')'; // Scroll tab bar
 
                 var clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
                 gallery.tabs.scrollTo({
@@ -123,7 +124,7 @@ function slideGallery(container, options) {
 
     function buildGallery() {
       gallery.numberOfImages = options.images.length - 1;
-      gallery.maxScrollWidth = gallery.numberOfImages * 100;
+      gallery.maxPercentScrollWidth = gallery.numberOfImages * 100;
       gallery.currentArrowScrollWidth = 0;
       options.images.forEach(function (img) {
         var slide = document.createElement('DIV');
@@ -148,7 +149,15 @@ function slideGallery(container, options) {
         leftArrow.addEventListener('click', function (e) {
           if (gallery.currentArrowScrollWidth > 0) {
             gallery.currentArrowScrollWidth -= 100;
-            gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+            gallery.count--;
+
+            if (gallery.tabs.firstChild) {
+              //alert('f')
+              document.querySelector('[data-index="' + gallery.count + '"]').click();
+            } // gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+
+
+            gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
           }
         });
         var rightArrow = document.createElement('SPAN');
@@ -156,9 +165,16 @@ function slideGallery(container, options) {
         rightArrow.setAttribute('tabindex', '0');
         arrowControls.appendChild(rightArrow);
         rightArrow.addEventListener('click', function (e) {
-          if (gallery.currentArrowScrollWidth < gallery.maxScrollWidth) {
+          if (gallery.currentArrowScrollWidth < gallery.maxPercentScrollWidth) {
             gallery.currentArrowScrollWidth += 100;
-            gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+            gallery.count++;
+
+            if (gallery.tabs.firstChild) {
+              //alert('f')
+              document.querySelector('[data-index="' + gallery.count + '"]').click();
+            }
+
+            gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
           }
         });
         gallery.galleryContainer.appendChild(arrowControls);

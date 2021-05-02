@@ -14,7 +14,7 @@ let gOptions = {
 		['https://placedog.net/911/600?random', 'Test Alt Text', ''],
 	],
 	arrowControls: true,
-	tabNav: 'none', // top, bottom, or none
+	tabNav: 'top', // top, bottom, or none
 	tabNavLabels: [
 		'Tab-1', // Must have same amount as images
 		'Tab-2',
@@ -32,13 +32,12 @@ let gOptions = {
 	thumbnails: false, // Uses the url from images
 };
 
-// console.log(gOptions);
-
 slideGallery('slide-gallery', gOptions);
 
 function slideGallery(container, options) {
 	const gallery = {
 		galleryRoot: document.getElementById(container),
+		count: 0,
 	};
 
 	createGalleryElements();
@@ -57,7 +56,6 @@ function slideGallery(container, options) {
 		galleryContainer.id = 'gallery-container';
 		const imagesContainer = document.createElement('DIV');
 		imagesContainer.classList.add('images-container');
-		imagesContainer.style.left = '0%';
 		galleryContainer.appendChild(imagesContainer);
 		gallery.imagesContainer = imagesContainer;
 		gallery.galleryContainer = galleryContainer;
@@ -100,9 +98,11 @@ function slideGallery(container, options) {
 					ul.appendChild(li);
 					li.addEventListener('click', (e) => {
 						const index = e.target.dataset.index;
+						gallery.count = index;
+						gallery.currentArrowScrollWidth = index * 100;
 
 						// Move Gallery Images depending on which tab is clicked
-						gallery.imagesContainer.style.left = -index + '00%';
+						gallery.imagesContainer.style.transform = 'translateX(' + -index + '00%' + ')';
 
 						// Scroll tab bar
 						const clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
@@ -130,7 +130,7 @@ function slideGallery(container, options) {
 
 		function buildGallery() {
 			gallery.numberOfImages = options.images.length - 1;
-			gallery.maxScrollWidth = gallery.numberOfImages * 100;
+			gallery.maxPercentScrollWidth = gallery.numberOfImages * 100;
 			gallery.currentArrowScrollWidth = 0;
 
 			options.images.forEach((img) => {
@@ -161,7 +161,15 @@ function slideGallery(container, options) {
 				leftArrow.addEventListener('click', (e) => {
 					if (gallery.currentArrowScrollWidth > 0) {
 						gallery.currentArrowScrollWidth -= 100;
-						gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+						gallery.count--;
+
+						if (gallery.tabs.firstChild) {
+							//alert('f')
+							document.querySelector('[data-index="' + gallery.count + '"]').click();
+						}
+
+						// gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+						gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
 					}
 				});
 
@@ -171,9 +179,14 @@ function slideGallery(container, options) {
 				arrowControls.appendChild(rightArrow);
 
 				rightArrow.addEventListener('click', (e) => {
-					if (gallery.currentArrowScrollWidth < gallery.maxScrollWidth) {
+					if (gallery.currentArrowScrollWidth < gallery.maxPercentScrollWidth) {
 						gallery.currentArrowScrollWidth += 100;
-						gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
+						gallery.count++;
+						if (gallery.tabs.firstChild) {
+							//alert('f')
+							document.querySelector('[data-index="' + gallery.count + '"]').click();
+						}
+						gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
 					}
 				});
 
