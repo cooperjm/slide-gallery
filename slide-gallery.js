@@ -18,8 +18,9 @@ let gOptions = {
 		['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'],
 		['https://placedog.net/911/600?random', 'Test Alt Text', ''],
 	],
+	pictureText: false,
 	arrowControls: true,
-	tabNav: 'top', // top, bottom, or none //TODO add bottom
+	tabNav: 'none', // top, bottom, or none //TODO add bottom
 	tabNavLabels: [
 		'Tab-1', // Must have same amount as images
 		'Tab-2',
@@ -34,7 +35,7 @@ let gOptions = {
 		'Tab-11',
 		'Tab-12',
 	],
-	thumbnails: false, // Uses the url from images
+	thumbnails: true, // Uses the url from images
 };
 
 slideGallery('slide-gallery', gOptions);
@@ -88,6 +89,8 @@ function slideGallery(container, options) {
 		buildTabs();
 
 		buildGallery();
+
+		buildThumbnails();
 
 		function buildTabs() {
 			// Generate the tabs from the tab labels given in the options
@@ -153,15 +156,18 @@ function slideGallery(container, options) {
 				slide.appendChild(image);
 				gallery.imagesContainer.appendChild(slide);
 
-				if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
-					const picText = document.createElement('DIV');
-					picText.classList.add('image-text');
-					const textWrapper = document.createElement('DIV');
-					textWrapper.classList.add('text-wrapper');
-					textWrapper.innerText = picture.text;
-					picText.appendChild(textWrapper);
-					slide.appendChild(picText);
+				if (gallery.pictureText) {
+					if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
+						const picText = document.createElement('DIV');
+						picText.classList.add('image-text');
+						const textWrapper = document.createElement('DIV');
+						textWrapper.classList.add('text-wrapper');
+						textWrapper.innerText = picture.text;
+						picText.appendChild(textWrapper);
+						slide.appendChild(picText);
+					}
 				}
+					
 
 				
 			});
@@ -209,6 +215,23 @@ function slideGallery(container, options) {
 
 				gallery.galleryContainer.appendChild(arrowControls);
 			}
+		}
+
+		function buildThumbnails() {
+			
+			const ul = document.createElement('UL');
+
+			options.images.forEach((img) => {
+				const li = document.createElement('LI');
+				const thumbnail = document.createElement('IMG');
+				li.classList.add('thumbnail');
+				thumbnail.src = img[0];
+				thumbnail.alt = img[1];
+				li.appendChild(thumbnail);
+				ul.appendChild(li);
+			});
+			gallery.thumbnailContainer.appendChild(ul);
+			
 		}
 	}
 

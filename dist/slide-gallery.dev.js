@@ -3,12 +3,13 @@
 var gOptions = {
   images: [// URL, alt text, copy text
   ['https://placedog.net/900/600?random', 'Test Alt Text', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus esse itaque iusto nesciunt vero, dolore totam obcaecati aut quos veniam, reiciendis modi vel porro ea. Vel pariatur non quam quibusdam.'], ['https://placedog.net/901/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/402/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/903/600?random', 'Test Alt Text'], ['https://placedog.net/904/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/905/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/906/600?random', 'Test Alt Text', ''], ['https://placedog.net/907/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/908/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/909/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/910/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/911/600?random', 'Test Alt Text', '']],
+  pictureText: false,
   arrowControls: true,
-  tabNav: 'top',
+  tabNav: 'none',
   // top, bottom, or none //TODO add bottom
   tabNavLabels: ['Tab-1', // Must have same amount as images
   'Tab-2', 'Tab-3', 'Tab-4', 'Tab-5', 'Tab-6', 'Tab-7', 'Tab-8', 'Tab-9', 'Tab-10', 'Tab-11', 'Tab-12'],
-  thumbnails: false // Uses the url from images
+  thumbnails: true // Uses the url from images
 
 };
 slideGallery('slide-gallery', gOptions);
@@ -58,6 +59,7 @@ function slideGallery(container, options) {
   function createGalleryComponents() {
     buildTabs();
     buildGallery();
+    buildThumbnails();
 
     function buildTabs() {
       // Generate the tabs from the tab labels given in the options
@@ -139,14 +141,16 @@ function slideGallery(container, options) {
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);
 
-        if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
-          var picText = document.createElement('DIV');
-          picText.classList.add('image-text');
-          var textWrapper = document.createElement('DIV');
-          textWrapper.classList.add('text-wrapper');
-          textWrapper.innerText = picture.text;
-          picText.appendChild(textWrapper);
-          slide.appendChild(picText);
+        if (gallery.pictureText) {
+          if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
+            var picText = document.createElement('DIV');
+            picText.classList.add('image-text');
+            var textWrapper = document.createElement('DIV');
+            textWrapper.classList.add('text-wrapper');
+            textWrapper.innerText = picture.text;
+            picText.appendChild(textWrapper);
+            slide.appendChild(picText);
+          }
         }
       });
 
@@ -190,6 +194,20 @@ function slideGallery(container, options) {
         });
         gallery.galleryContainer.appendChild(arrowControls);
       }
+    }
+
+    function buildThumbnails() {
+      var ul = document.createElement('UL');
+      options.images.forEach(function (img) {
+        var li = document.createElement('LI');
+        var thumbnail = document.createElement('IMG');
+        li.classList.add('thumbnail');
+        thumbnail.src = img[0];
+        thumbnail.alt = img[1];
+        li.appendChild(thumbnail);
+        ul.appendChild(li);
+      });
+      gallery.thumbnailContainer.appendChild(ul);
     }
   } // const galleryHolder = document.getElementById(container);
 
