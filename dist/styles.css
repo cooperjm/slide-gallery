@@ -182,3 +182,14 @@
   left: 0;
   transition: left 0.3s ease-in-out;
 }
+
+@media screen and (max-width: 600px) {
+  .image img {
+    max-height: 300px !important;
+  }
+}
+@media screen and (max-width: 700px) {
+  .image img {
+    max-height: 400px !important;
+  }
+}
