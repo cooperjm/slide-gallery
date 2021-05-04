@@ -169,6 +169,11 @@ function slideGallery(container, options) {
             if (gallery.tabs.firstChild) {
               //alert('f')
               document.querySelector('[data-index="' + gallery.count + '"]').click();
+            }
+
+            if (gallery.thumbnailContainer.firstChild) {
+              //alert('f')
+              document.querySelector('[data-index="' + gallery.count + '"]').click();
             } // gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
 
 
@@ -185,6 +190,11 @@ function slideGallery(container, options) {
             gallery.count++;
 
             if (gallery.tabs.firstChild) {
+              //alert('f')
+              document.querySelector('[data-index="' + gallery.count + '"]').click();
+            }
+
+            if (gallery.thumbnailContainer.firstChild) {
               //alert('f')
               document.querySelector('[data-index="' + gallery.count + '"]').click();
             }

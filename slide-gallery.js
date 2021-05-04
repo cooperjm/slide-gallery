@@ -167,9 +167,6 @@ function slideGallery(container, options) {
 						slide.appendChild(picText);
 					}
 				}
-					
-
-				
 			});
 
 			if (options.arrowControls) {
@@ -187,6 +184,11 @@ function slideGallery(container, options) {
 						gallery.count--;
 
 						if (gallery.tabs.firstChild) {
+							//alert('f')
+							document.querySelector('[data-index="' + gallery.count + '"]').click();
+						}
+
+						if (gallery.thumbnailContainer.firstChild) {
 							//alert('f')
 							document.querySelector('[data-index="' + gallery.count + '"]').click();
 						}
@@ -209,6 +211,11 @@ function slideGallery(container, options) {
 							//alert('f')
 							document.querySelector('[data-index="' + gallery.count + '"]').click();
 						}
+
+						if (gallery.thumbnailContainer.firstChild) {
+							//alert('f')
+							document.querySelector('[data-index="' + gallery.count + '"]').click();
+						}
 						gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
 					}
 				});
@@ -220,7 +227,7 @@ function slideGallery(container, options) {
 		function buildThumbnails() {
 			let selectedThumbnail;
 			let previousSelectedThumbnail;
-			
+
 			const ul = document.createElement('UL');
 			let i = 0;
 			options.images.forEach((img) => {
@@ -228,14 +235,14 @@ function slideGallery(container, options) {
 				const thumbnail = document.createElement('IMG');
 				li.classList.add('thumbnail');
 				thumbnail.setAttribute('data-index', i);
-				
-				if(thumbnail.dataset.index == 0) {
+
+				if (thumbnail.dataset.index == 0) {
 					thumbnail.classList.add('selectedThumbnail');
 					previousSelectedThumbnail = thumbnail;
 				}
 				thumbnail.src = img[0];
 				thumbnail.alt = img[1];
-				
+
 				li.appendChild(thumbnail);
 				ul.appendChild(li);
 				li.addEventListener('click', (e) => {
@@ -244,8 +251,7 @@ function slideGallery(container, options) {
 					previousSelectedThumbnail.classList.remove('selectedThumbnail');
 					selectedThumbnail = e.target;
 					selectedThumbnail.classList.add('selectedThumbnail');
-					
-					
+
 					gallery.count = index;
 					gallery.currentArrowScrollWidth = index * 100;
 
@@ -258,14 +264,13 @@ function slideGallery(container, options) {
 						left: clicked,
 						behavior: 'smooth',
 					});
-					
+
 					previousSelectedThumbnail = selectedThumbnail;
 				});
-				
+
 				i++;
 			});
 			gallery.thumbnailContainer.appendChild(ul);
-			
 		}
 	}
 
