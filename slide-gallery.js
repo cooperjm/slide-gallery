@@ -218,17 +218,51 @@ function slideGallery(container, options) {
 		}
 
 		function buildThumbnails() {
+			let selectedThumbnail;
+			let previousSelectedThumbnail;
 			
 			const ul = document.createElement('UL');
-
+			let i = 0;
 			options.images.forEach((img) => {
 				const li = document.createElement('LI');
 				const thumbnail = document.createElement('IMG');
 				li.classList.add('thumbnail');
+				thumbnail.setAttribute('data-index', i);
+				
+				if(thumbnail.dataset.index == 0) {
+					thumbnail.classList.add('selectedThumbnail');
+					previousSelectedThumbnail = thumbnail;
+				}
 				thumbnail.src = img[0];
 				thumbnail.alt = img[1];
+				
 				li.appendChild(thumbnail);
 				ul.appendChild(li);
+				li.addEventListener('click', (e) => {
+					const index = e.target.dataset.index;
+
+					previousSelectedThumbnail.classList.remove('selectedThumbnail');
+					selectedThumbnail = e.target;
+					selectedThumbnail.classList.add('selectedThumbnail');
+					
+					
+					gallery.count = index;
+					gallery.currentArrowScrollWidth = index * 100;
+
+					// Move Gallery Images depending on which thumbnail is clicked
+					gallery.imagesContainer.style.transform = 'translateX(' + -index + '00%' + ')';
+
+					// Scroll thumbnail bar
+					const clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
+					gallery.thumbnailContainer.scrollTo({
+						left: clicked,
+						behavior: 'smooth',
+					});
+					
+					previousSelectedThumbnail = selectedThumbnail;
+				});
+				
+				i++;
 			});
 			gallery.thumbnailContainer.appendChild(ul);
 			

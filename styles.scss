@@ -170,6 +170,7 @@
 			flex-shrink: 0;
 			flex-basis: 132px;
 			max-height: 105px;
+			cursor: pointer;
 
 			&:first-child {
 				border-left: solid 4px black;
@@ -185,12 +186,17 @@
 				max-width: 132px;
 				object-fit: cover;
 				transform: scale(1);
-				transition: transform 0.3s ease-in-out;
+				transition: transform 0.4s ease-in-out;
 
 				&:hover {
 					transform: scale(1.2);
 				}
 			}
+		}
+
+		.selectedThumbnail {
+			transform: scale(1.2) !important;
+			filter: grayscale(100%) blur(1px);
 		}
 	}
 }
