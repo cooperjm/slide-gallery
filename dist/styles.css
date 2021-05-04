@@ -92,6 +92,7 @@
   min-height: 75px;
   border-radius: 100%;
   cursor: pointer;
+  outline: none !important;
 }
 #gallery-container #arrow-controls .left {
   margin-left: 2%;
