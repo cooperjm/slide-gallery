@@ -4,6 +4,7 @@ var gOptions = {
   images: [// URL, alt text, copy text
   ['https://placedog.net/1100/600?random', 'Test Alt Text', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus esse itaque iusto nesciunt vero, dolore totam obcaecati aut quos veniam, reiciendis modi vel porro ea. Vel pariatur non quam quibusdam.'], ['https://placedog.net/1101/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1102/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1103/600?random', 'Test Alt Text'], ['https://placedog.net/1104/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1105/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1106/600?random', 'Test Alt Text', ''], ['https://placedog.net/1107/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1108/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1109/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1110/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1111/600?random', 'Test Alt Text', '']],
   pictureText: false,
+  textOverlay: true,
   arrowControls: true,
   tabNav: 'none',
   // top, bottom, or none //TODO add bottom
@@ -57,8 +58,16 @@ function slideGallery(container, options) {
   }
 
   function createGalleryComponents() {
-    buildTabs();
-    buildGallery();
+    if (options.tabNav == 'bottom') {
+      buildGallery();
+      buildTabs();
+    } else if (options.tabNav == 'top') {
+      buildTabs();
+      buildGallery();
+    } else {
+      buildGallery();
+    }
+
     buildThumbnails();
 
     function buildTabs() {
@@ -137,6 +146,14 @@ function slideGallery(container, options) {
         picture.src = img[0];
         picture.alt = img[1];
         picture.text = img[2];
+
+        if (options.textOverlay) {
+          var textOverlay = document.createElement('DIV');
+          textOverlay.classList.add('textOverlay');
+          textOverlay.innerHTML = img[1];
+          image.appendChild(textOverlay);
+        }
+
         image.appendChild(picture);
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);

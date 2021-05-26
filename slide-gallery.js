@@ -19,6 +19,7 @@ let gOptions = {
 		['https://placedog.net/1111/600?random', 'Test Alt Text', ''],
 	],
 	pictureText: false,
+	textOverlay: true,
 	arrowControls: true,
 	tabNav: 'none', // top, bottom, or none //TODO add bottom
 	tabNavLabels: [
@@ -86,9 +87,15 @@ function slideGallery(container, options) {
 	}
 
 	function createGalleryComponents() {
-		buildTabs();
-
-		buildGallery();
+		if (options.tabNav == 'bottom') {
+			buildGallery();
+			buildTabs();
+		} else if (options.tabNav == 'top') {
+			buildTabs();
+			buildGallery();
+		} else {
+			buildGallery();
+		}
 
 		buildThumbnails();
 
@@ -109,10 +116,12 @@ function slideGallery(container, options) {
 						gallery.currentArrowScrollWidth = index * 100;
 
 						// Move Gallery Images depending on which tab is clicked
-						gallery.imagesContainer.style.transform = 'translateX(' + -index + '00%' + ')';
+						gallery.imagesContainer.style.transform =
+							'translateX(' + -index + '00%' + ')';
 
 						// Scroll tab bar
-						const clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
+						const clicked =
+							e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
 						gallery.tabs.scrollTo({
 							left: clicked,
 							behavior: 'smooth',
@@ -152,6 +161,12 @@ function slideGallery(container, options) {
 				picture.alt = img[1];
 				picture.text = img[2];
 
+				if (options.textOverlay) {
+					const textOverlay = document.createElement('DIV');
+					textOverlay.classList.add('textOverlay');
+					textOverlay.innerHTML = img[1];
+					image.appendChild(textOverlay);
+				}
 				image.appendChild(picture);
 				slide.appendChild(image);
 				gallery.imagesContainer.appendChild(slide);
@@ -194,7 +209,8 @@ function slideGallery(container, options) {
 						}
 
 						// gallery.imagesContainer.style.left = -gallery.currentArrowScrollWidth + '%';
-						gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
+						gallery.imagesContainer.style.transform =
+							'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
 					}
 				});
 
@@ -216,7 +232,8 @@ function slideGallery(container, options) {
 							//alert('f')
 							document.querySelector('[data-index="' + gallery.count + '"]').click();
 						}
-						gallery.imagesContainer.style.transform = 'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
+						gallery.imagesContainer.style.transform =
+							'translateX(' + -gallery.currentArrowScrollWidth + '%' + ')';
 					}
 				});
 
@@ -259,7 +276,8 @@ function slideGallery(container, options) {
 					gallery.imagesContainer.style.transform = 'translateX(' + -index + '00%' + ')';
 
 					// Scroll thumbnail bar
-					const clicked = e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
+					const clicked =
+						e.target.offsetLeft - ul.clientWidth / 2 + e.target.clientWidth / 2;
 					gallery.thumbnailContainer.scrollTo({
 						left: clicked,
 						behavior: 'smooth',
