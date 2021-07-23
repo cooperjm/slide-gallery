@@ -171,7 +171,7 @@ function slideGallery(container, options) {
 				slide.appendChild(image);
 				gallery.imagesContainer.appendChild(slide);
 
-				if (gallery.pictureText) {
+				if (options.pictureText) {
 					if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
 						const picText = document.createElement('DIV');
 						picText.classList.add('image-text');
