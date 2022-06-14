@@ -19,7 +19,7 @@ let gOptions = {
 		['https://placedog.net/1111/600?random', 'Test Alt Text', ''],
 	],
 	pictureText: false,
-	textOverlay: true,
+	textOverlay: false,
 	arrowControls: true,
 	tabNav: 'none', // top, bottom, or none //TODO add bottom
 	tabNavLabels: [

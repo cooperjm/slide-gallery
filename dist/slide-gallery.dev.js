@@ -4,7 +4,7 @@ var gOptions = {
   images: [// URL, alt text, copy text
   ['https://placedog.net/1100/600?random', 'Test Alt Text', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus esse itaque iusto nesciunt vero, dolore totam obcaecati aut quos veniam, reiciendis modi vel porro ea. Vel pariatur non quam quibusdam.'], ['https://placedog.net/1101/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1102/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1103/600?random', 'Test Alt Text'], ['https://placedog.net/1104/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1105/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1106/600?random', 'Test Alt Text', ''], ['https://placedog.net/1107/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1108/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1109/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1110/600?random', 'Test Alt Text', 'Test Copy'], ['https://placedog.net/1111/600?random', 'Test Alt Text', '']],
   pictureText: false,
-  textOverlay: true,
+  textOverlay: false,
   arrowControls: true,
   tabNav: 'none',
   // top, bottom, or none //TODO add bottom
@@ -158,7 +158,7 @@ function slideGallery(container, options) {
         slide.appendChild(image);
         gallery.imagesContainer.appendChild(slide);
 
-        if (gallery.pictureText) {
+        if (options.pictureText) {
           if (picture.text != '' && picture.text != 'undefined' && picture.text != null) {
             var picText = document.createElement('DIV');
             picText.classList.add('image-text');
